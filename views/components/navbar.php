@@ -1,6 +1,6 @@
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
     <div class="container-fluid">
-        <a class="navbar-brand" href="#">Dev-land</a>
+        <a class="navbar-brand" href="/">Dev-land</a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup"
                 aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
@@ -11,8 +11,30 @@
             </div>
         </div>
         <div class="navbar-nav">
-            <a class="nav-link" href="/login">Log in</a>
-            <a class="nav-link" href="/register">Sign Up</a>
+            <?php
+            if (!$_SESSION["user"]) {
+                ?>
+                <a class="nav-link" href="/login">Log in</a>
+                <a class="nav-link" href="/register">Sign Up</a>
+                <?php
+            } elseif ($_SESSION["user"]["group"] == 1) {
+                ?>
+                <a class="nav-link" href="/profile">Profile</a>
+                <form action="/logout" method="post">
+                    <button type="submit" class="btn border-0 nav-link">Log out</button>
+                </form>
+                <?php
+            } elseif ($_SESSION["user"]["group"] == 2) {
+                ?>
+                <a class="nav-link" href="/admin">Dashboard</a>
+                <a class="nav-link" href="/profile">Profile</a>
+                <form action="/logout" method="post">
+                    <button type="submit" class="btn border-0 nav-link">Log out</button>
+                </form>
+            <?php
+            }
+            ?>
+
         </div>
     </div>
 </nav>
